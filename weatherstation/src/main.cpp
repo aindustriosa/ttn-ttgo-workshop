@@ -16,7 +16,7 @@
 // include CayenneLPP library
 #include <CayenneLPP.h>
 
-// define the I2C pins for TTGO v2.1 - T3_v1.6
+// define the I2C pins for TTGO v1 - v2.1 - T3_v1.6
 #define I2C_SDA 21              // GPIO 21
 #define I2C_SCL 22              // GPIO 22
 
@@ -76,7 +76,7 @@ void setup()
 {
   // set up serial port for debugging information --> 115200bps
   Serial.begin(115200);
-  Serial.println("TTGO LoRa32 v2.1 - BME280 weather station started");
+  Serial.println("TTGO LoRa32 v1 - BME280 weather station started");
 
   // initialize I2C
   // Wire.begin(I2C_SDA, I2C_SCL);
