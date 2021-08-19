@@ -20,13 +20,6 @@
 #define I2C_SDA 21              // GPIO 21
 #define I2C_SCL 22              // GPIO 22
 
-// define the GPIOs for the display
-// NOTE: this will cause warning during the compilation, because 
-//       we overwrite the Arduino settings for this platform here
-#define OLED_SDA I2C_SDA        // GPIO 21
-#define OLED_SCL I2C_SCL        // GPIO 22
-#define OLED_RST U8X8_PIN_NONE  // none
-
 // LoRaWAN NwkSKey, network session key
 // generated: { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }
 static const PROGMEM u1_t NWKSKEY[16] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -77,7 +70,7 @@ float humidity;
 CayenneLPP lpp(51);
 
 // define the display type that we use
-U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8(/* rst */ OLED_RST);
+U8X8_SSD1306_128X64_NONAME_HW_I2C u8x8(OLED_RST, OLED_SCL, OLED_SDA);
 
 void setup() 
 {
@@ -202,9 +195,12 @@ void readSensorData()
  */
 void displaySensorData() 
 {
+  Serial.println("Updating display");
   u8x8.clearDisplay();
   u8x8.setCursor(0, 0);
-  
+
+  u8x8.println("Weather Station");
+
   u8x8.print("Temp: ");
   u8x8.print(temperature);
   u8x8.println("°C");
